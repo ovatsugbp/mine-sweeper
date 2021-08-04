@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
 
 import br.com.javap.cm.modelo.Campo;
 import br.com.javap.cm.modelo.CampoEvento;
@@ -24,6 +25,7 @@ public class FieldButton extends JButton
 	public FieldButton(Campo campo) {
 		this.campo = campo;
 		setBackground(BG_PADRAO);
+		setOpaque(true);
 		setBorder(BorderFactory.createBevelBorder(0));
 		campo.registerObserver(this);
 		addMouseListener(this);
@@ -45,24 +47,39 @@ public class FieldButton extends JButton
 			applyStyleDefault();	
 		
 	}
+		SwingUtilities.invokeLater(() -> {
+			repaint();
+			validate();
+		});
 }
 
 	private void applyStyleDefault() {
-		// TODO Auto-generated method stub
+		setBackground(BG_PADRAO);
+		setBorder(BorderFactory.createBevelBorder(0));
+		setText("");
 		
 	}
 
 	private void applyStyleExplode() {
-		// TODO Auto-generated method stub
+		setBackground(BG_EXPLOSION);
+		setForeground(Color.WHITE);
+		setText("X");
 		
 	}
 
 	private void applyStyleCheck() {
-		// TODO Auto-generated method stub
+		setBackground(BG_CHECKED);
+		setForeground(Color.BLACK);
+		setText("C");
 		
 	}
 
 	private void applyStyleOpen() {
+		setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		if(campo.isBombed()) {
+			setBackground(BG_EXPLOSION);
+			return;
+		}
 		setBackground(BG_PADRAO);
 		setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		

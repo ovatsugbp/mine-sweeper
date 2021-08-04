@@ -2,7 +2,9 @@ package br.com.javap.cm.visao;
 
 import java.awt.GridLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import br.com.javap.cm.modelo.Tabuleiro;
 
@@ -15,7 +17,16 @@ public class TabPanel extends JPanel{
 		tab.forEachField(c -> add(new FieldButton(c)));
 		
 		tab.registerObserver(e -> {
-			//TODO mostrar resultado para o user
+			
+			SwingUtilities.invokeLater(() -> {
+				if(e.isWin()) {
+					JOptionPane.showMessageDialog(this, "Ganhou");
+				} else {
+					JOptionPane.showMessageDialog(this, "Perdeu :(");
+				}
+				tab.restart();
+			});
+			
 		});
 	}
 

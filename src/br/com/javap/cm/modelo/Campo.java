@@ -134,6 +134,7 @@ public class Campo {
 		open = false;
 		mine = false;
 		checked = false;
+		notificateObservers(CampoEvento.RESTART);
 	}
 	
 }

@@ -105,6 +105,7 @@ public class Tabuleiro implements CampoObservador{
 	private void showMines() {
 		fields.stream()
 		.filter(c -> c.isBombed())
+		.filter(c -> !c.isChecked())
 		.forEach(c -> c.setOpen(true));
 	}
 	public int getRows() {
